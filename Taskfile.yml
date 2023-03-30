@@ -27,6 +27,15 @@ tasks:
 
   init:
     cmds:
+      - task: init:env
+      - task: install
+
+  init:env:
+    cmds:
+      - cp .env.development .env
+
+  install:
+    cmds:
       - pnpm i
 
   run:web:
@@ -37,14 +46,14 @@ tasks:
     cmds:
       - pnpm tauri:dev
 
-  new:tauri:
+  new:
     cmds:
       - |
-        git clone git@github.com:better-rs/tauri-template.git app;
+        git clone https://github.com/better-rs/tauri-vue-template.git app --single-branch -b "dev/tauri-i18n"
         cd app;
         rm -rf .git;
         cd ..;
-        cp -r app ../biz/geek-jp/app;
+    #        cp -r app ../biz/geek-jp/app;
     dir: tmp
 
   #########################################################################

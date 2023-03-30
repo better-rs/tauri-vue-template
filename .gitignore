@@ -19,3 +19,7 @@ tests/**/coverage/
 *.njsproj
 *.sln
 tsconfig.tsbuildinfo
+
+# add:
+.env
+tmp/
