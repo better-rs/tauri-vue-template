@@ -25,6 +25,18 @@ tasks:
     cmds:
       - echo 'init'
 
+  init:
+    cmds:
+      - pnpm i
+
+  run:web:
+    cmds:
+      - pnpm dev
+
+  run:
+    cmds:
+      - pnpm tauri:dev
+
   new:tauri:
     cmds:
       - |
