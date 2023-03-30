@@ -1,0 +1,60 @@
+version: "3"
+
+includes:
+  rs:
+    taskfile: ./src-tauri/
+    dir: ./src-tauri/
+    optional: true
+
+vars:
+  VAR1: "some-var"
+
+# global env:
+env:
+  ENV1: env1
+
+# env file:
+dotenv:
+  - .env
+
+################################################################################################
+
+# task groups:
+tasks:
+  default:
+    cmds:
+      - echo 'init'
+
+  new:tauri:
+    cmds:
+      - |
+        git clone git@github.com:better-rs/tauri-template.git app;
+        cd app;
+        rm -rf .git;
+        cd ..;
+        cp -r app ../biz/geek-jp/app;
+    dir: tmp
+
+  #########################################################################
+
+  quick:
+    cmds:
+      - task: commit
+      - task: commit
+    ignore_error: true
+
+  commit:
+    cmds:
+      - git add .
+      - git commit -m "update"
+    ignore_error: true
+
+  push:
+    cmds:
+      - git push origin main --tags
+      - repo_url=`git remote -v | grep push | awk -F ":" '{print $2}' | awk -F ".git" '{print "https://github.com/"$1}'`; open $repo_url
+
+  pull:
+    cmds:
+      - git config pull.rebase false
+      - git pull origin main
